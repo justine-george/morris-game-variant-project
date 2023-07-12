@@ -1,4 +1,4 @@
-# Author: Justine George - JXG210092 - CS 6364 - Su23
+# Author: Justine George - JXG210092 - CS 6364 - 0U2 - Su23
 
 # Part IV.b MiniMaxGameImproved
 

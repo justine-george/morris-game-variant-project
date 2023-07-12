@@ -1,0 +1,132 @@
+# Author: Justine George - JXG210092 - CS 6364 - Su23
+
+# Part II.b Alpha-Beta Game
+
+import sys
+
+from MoveGenerator import (
+    flipBoard,
+    flipBoardList,
+    generateMovesMidgameEndgame,
+    getBlackPieceCount,
+    getWhitePieceCount,
+)
+
+# global variables
+countStaticEstimate = 0
+
+
+# Max min
+def maxMin(b, alpha, beta, currentDepth):
+    # if leaf node
+    if currentDepth == maxDepth:
+        # get black moves
+        tempb = flipBoard(b)
+        Ltemp = generateMovesMidgameEndgame(tempb)
+        L = flipBoardList(Ltemp)
+
+        return (getStaticEstimationMidgameEndgame(b, L), b)
+    else:
+        v = float("-inf")
+
+        # get white moves
+        L = generateMovesMidgameEndgame(b)
+
+        # for each position after a possible white move
+        bestB = ""
+        for y in L:
+            (estimate, _) = minMax(y, alpha, beta, currentDepth + 1)
+            if estimate > v:
+                v = estimate
+                bestB = y
+                if v >= beta:
+                    return (v, bestB)
+                else:
+                    alpha = max(v, alpha)
+        return (v, bestB)
+
+
+# Min max
+def minMax(b, alpha, beta, currentDepth):
+    # if leaf node
+    if currentDepth == maxDepth:
+        # get black moves
+        tempb = flipBoard(b)
+        Ltemp = generateMovesMidgameEndgame(tempb)
+        L = flipBoardList(Ltemp)
+
+        return (getStaticEstimationMidgameEndgame(b, L), b)
+    else:
+        v = float("inf")
+
+        # get black moves
+        tempb = flipBoard(b)
+        Ltemp = generateMovesMidgameEndgame(tempb)
+        L = flipBoardList(Ltemp)
+
+        # for each position after a possible black move
+        bestB = ""
+        for y in L:
+            (estimate, _) = maxMin(y, alpha, beta, currentDepth + 1)
+            if estimate < v:
+                v = estimate
+                bestB = y
+                if v <= alpha:
+                    return (v, bestB)
+                else:
+                    beta = min(v, beta)
+        return (v, bestB)
+
+
+# ##################################################################################
+
+
+# Static estimation for MidgameEndgame
+# L - the MidgameEndgame positions generated from b by a black move
+def getStaticEstimationMidgameEndgame(b, L):
+    global countStaticEstimate
+    countStaticEstimate += 1
+    numWhitePieces = getWhitePieceCount(b)
+    numBlackPieces = getBlackPieceCount(b)
+    numBlackMoves = len(L)
+
+    if numBlackPieces <= 2:
+        return 10000
+    elif numWhitePieces <= 2:
+        return -10000
+    elif numBlackMoves == 0:
+        return 10000
+    else:
+        return 1000 * (numWhitePieces - numBlackPieces) - numBlackMoves
+
+
+# helper methods
+# alpha-beta
+def getMaxminEstimate(inputB):
+    return maxMin(inputB, float("-inf"), float("inf"), 0)
+
+
+# ##################################################################################
+
+# sys.argv[1:] contains command line arguments
+inputFile = sys.argv[1]
+outputFile = sys.argv[2]
+maxDepth = int(sys.argv[3])
+
+# read contents from the input file
+inputB = ""
+with open(inputFile, "r") as f:
+    inputB = inputB + f.read()
+
+print(inputB)
+# calculate Minimax estimate
+(estimate, bestB) = getMaxminEstimate(inputB)
+print(bestB)
+
+# write into the output file
+with open(outputFile, "w") as opFile:
+    opFile.write("Board Position: " + bestB)
+    opFile.write(
+        "\nPositions evaluated by static estimation: " + str(countStaticEstimate) + "."
+    )
+    opFile.write("\nMINIMAX estimate: " + str(estimate) + ".")

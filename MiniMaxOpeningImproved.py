@@ -4,7 +4,8 @@
 
 import sys
 
-from MoveGenerator import (
+from Utils import (
+    drawBoard,
     flipBoard,
     flipBoardList,
     generateMovesOpening,
@@ -63,9 +64,6 @@ def minMax(b, currentDepth):
         return (v, bestB)
 
 
-# ##################################################################################
-
-
 # Static estimation for Opening - Improved
 def getStaticEstimationOpening(b):
     global countStaticEstimate
@@ -112,10 +110,14 @@ inputB = ""
 with open(inputFile, "r") as f:
     inputB = inputB + f.read()
 
-print(inputB)
+print("Input:")
+drawBoard(inputB)
+
 # calculate Minimax estimate
 (estimate, bestB) = getMaxminEstimate(inputB)
-print(bestB)
+
+print("\nOutput:")
+drawBoard(bestB)
 
 # write into the output file
 with open(outputFile, "w") as opFile:

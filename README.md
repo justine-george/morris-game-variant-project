@@ -1,8 +1,8 @@
 # Morris Variant Game - AI Project
 
-Minimax vs Alpha-beta pruning
+MiniMax vs Alpha-Beta pruning
 
-## To run the programs:
+## Sample input and output:
 
 Part I:  
 $python3 MiniMaxOpening.py board1.txt board2.txt 2  

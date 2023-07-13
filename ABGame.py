@@ -4,7 +4,8 @@
 
 import sys
 
-from MoveGenerator import (
+from Utils import (
+    drawBoard,
     flipBoard,
     flipBoardList,
     generateMovesMidgameEndgame,
@@ -78,9 +79,6 @@ def minMax(b, alpha, beta, currentDepth):
         return (v, bestB)
 
 
-# ##################################################################################
-
-
 # Static estimation for MidgameEndgame
 # L - the MidgameEndgame positions generated from b by a black move
 def getStaticEstimationMidgameEndgame(b, L):
@@ -118,10 +116,14 @@ inputB = ""
 with open(inputFile, "r") as f:
     inputB = inputB + f.read()
 
-print(inputB)
+print("Input:")
+drawBoard(inputB)
+
 # calculate Minimax estimate
 (estimate, bestB) = getMaxminEstimate(inputB)
-print(bestB)
+
+print("\nOutput:")
+drawBoard(bestB)
 
 # write into the output file
 with open(outputFile, "w") as opFile:

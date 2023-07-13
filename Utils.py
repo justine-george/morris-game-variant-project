@@ -1,6 +1,6 @@
 # Author: Justine George - JXG210092 - CS 6364 - 0U2 - Su23
 
-# Move generator for Morris Variant
+# Contains move generator for Morris Variant and other helper functions
 
 
 def generateMovesOpening(b):
@@ -216,3 +216,45 @@ def getPositionScore(b, piece):
             neighborList = getNeighborsList(j)
             positionScore += len(neighborList)
     return positionScore
+
+
+# print a board position - ASCII art style
+def drawBoard(b):
+    if len(b) != 21:
+        print("drawBoard: Invalid board")
+        return
+    lines = [
+        "      '18'-----------'19'-----------'20'",
+        "      |           |           |",
+        "      |   '15'-------'16'-------'17'   |",
+        "      |   |       |       |   |",
+        "      |   |   '12'---'13'---'14'   |   |",
+        "      |   |   |       |   |   |",
+        "      '6'---'7'---'8'       '9'---'10'---'11'",
+        "      |   |   |       |   |   |",
+        "      |   |   '4'-------'5'   |   |",
+        "      |   |               |   |",
+        "      |   '2'---------------'3'   |",
+        "      |                       |",
+        "      '0'-----------------------'1'",
+    ]
+
+    # convert immutable string to mutable list
+    boardlist = list(b)
+
+    # replace x with | or -
+    vert_range = [6, 7, 8, 9, 10, 11]
+    for i in range(len(boardlist)):
+        if boardlist[i] == "x":
+            if i in vert_range:
+                boardlist[i] = "|"
+            else:
+                boardlist[i] = "-"
+    # replace placeholders and print board line by line
+    for i in range(len(lines)):
+        line = lines[i]
+        for j in range(len(b)):
+            placeholder = "'" + str(j) + "'"
+            if placeholder in line:
+                line = line.replace(placeholder, boardlist[j])
+        print(line)

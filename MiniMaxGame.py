@@ -107,7 +107,7 @@ inputB = ""
 with open(inputFile, "r") as f:
     inputB = inputB + f.read()
 
-print("Input:")
+print("\nInput:")
 drawBoard(inputB)
 
 # calculate Minimax estimate
@@ -123,3 +123,5 @@ with open(outputFile, "w") as opFile:
         "\nPositions evaluated by static estimation: " + str(countStaticEstimate) + "."
     )
     opFile.write("\nMINIMAX estimate: " + str(estimate) + ".")
+    print("\nPositions evaluated by static estimation: " + str(countStaticEstimate) + ".")
+    print("MINIMAX estimate: " + str(estimate) + ".\n")

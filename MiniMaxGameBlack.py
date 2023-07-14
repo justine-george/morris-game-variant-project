@@ -92,7 +92,7 @@ def getStaticEstimationMidgameEndgame(b, L):
 
 # helper methods
 def getMaxminEstimate(inputB):
-    return minMax(inputB, 0)
+    return maxMin(inputB, 0)
 
 
 # ##################################################################################
@@ -111,10 +111,12 @@ print("\nInput:")
 drawBoard(inputB)
 
 # calculate Minimax estimate
-(estimate, bestB) = getMaxminEstimate(inputB)
+flippedB = flipBoard(inputB)
+(estimate, bestB) = getMaxminEstimate(flippedB)
+outputB = flipBoard(bestB)
 
 print("\nOutput:")
-drawBoard(bestB)
+drawBoard(outputB)
 
 # write into the output file
 with open(outputFile, "w") as opFile:

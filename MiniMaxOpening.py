@@ -6,9 +6,8 @@ import sys
 
 from Utils import (
     drawBoard,
-    flipBoard,
-    flipBoardList,
     generateMovesOpening,
+    getBlackMovesOpening,
     getBlackPieceCount,
     getWhitePieceCount,
 )
@@ -47,9 +46,7 @@ def minMax(b, currentDepth):
         v = float("inf")
 
         # get black moves
-        tempb = flipBoard(b)
-        Ltemp = generateMovesOpening(tempb)
-        L = flipBoardList(Ltemp)
+        L = getBlackMovesOpening(b)
 
         # for each position after a possible black move
         bestB = ""
@@ -101,5 +98,7 @@ with open(outputFile, "w") as opFile:
         "\nPositions evaluated by static estimation: " + str(countStaticEstimate) + "."
     )
     opFile.write("\nMINIMAX estimate: " + str(estimate) + ".")
-    print("\nPositions evaluated by static estimation: " + str(countStaticEstimate) + ".")
+    print(
+        "\nPositions evaluated by static estimation: " + str(countStaticEstimate) + "."
+    )
     print("MINIMAX estimate: " + str(estimate) + ".\n")

@@ -6,9 +6,8 @@ import sys
 
 from Utils import (
     drawBoard,
-    flipBoard,
-    flipBoardList,
     generateMovesMidgameEndgame,
+    getBlackMovesMidgameEndgame,
     getBlackPieceCount,
     getMillCount,
     getMobilityCount,
@@ -25,9 +24,7 @@ def maxMin(b, currentDepth):
     # if leaf node
     if currentDepth == maxDepth:
         # get black moves
-        tempb = flipBoard(b)
-        Ltemp = generateMovesMidgameEndgame(tempb)
-        L = flipBoardList(Ltemp)
+        L = getBlackMovesMidgameEndgame(b)
 
         return (getStaticEstimationMidgameEndgame(b, L), b)
     else:
@@ -51,18 +48,14 @@ def minMax(b, currentDepth):
     # if leaf node
     if currentDepth == maxDepth:
         # get black moves
-        tempb = flipBoard(b)
-        Ltemp = generateMovesMidgameEndgame(tempb)
-        L = flipBoardList(Ltemp)
+        L = getBlackMovesMidgameEndgame(b)
 
         return (getStaticEstimationMidgameEndgame(b, L), b)
     else:
         v = float("inf")
 
         # get black moves
-        tempb = flipBoard(b)
-        Ltemp = generateMovesMidgameEndgame(tempb)
-        L = flipBoardList(Ltemp)
+        L = getBlackMovesMidgameEndgame(b)
 
         # for each position after a possible black move
         bestB = ""
@@ -147,5 +140,7 @@ with open(outputFile, "w") as opFile:
         "\nPositions evaluated by static estimation: " + str(countStaticEstimate) + "."
     )
     opFile.write("\nMINIMAX estimate: " + str(estimate) + ".")
-    print("\nPositions evaluated by static estimation: " + str(countStaticEstimate) + ".")
+    print(
+        "\nPositions evaluated by static estimation: " + str(countStaticEstimate) + "."
+    )
     print("MINIMAX estimate: " + str(estimate) + ".\n")

@@ -174,6 +174,18 @@ def flipBoard(board):
     return newBoard
 
 
+# return black moves for Opening
+def getBlackMovesOpening(board):
+    tempb = flipBoard(board)
+    L = generateMovesOpening(tempb)
+    return flipBoardList(L)
+
+# return black moves for MidgameEndgame
+def getBlackMovesMidgameEndgame(board):
+    tempb = flipBoard(board)
+    L = generateMovesMidgameEndgame(tempb)
+    return flipBoardList(L)
+
 #  returns the number of pieces in mill formation
 def getMillCount(b, piece):
     millCount = 0

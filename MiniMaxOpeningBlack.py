@@ -98,7 +98,7 @@ drawBoard(outputB)
 
 # write into the output file
 with open(outputFile, "w") as opFile:
-    opFile.write("Board Position: " + bestB)
+    opFile.write("Board Position: " + outputB)
     opFile.write(
         "\nPositions evaluated by static estimation: " + str(countStaticEstimate) + "."
     )

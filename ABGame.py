@@ -37,10 +37,10 @@ def maxMin(b, alpha, beta, currentDepth):
             if estimate > v:
                 v = estimate
                 bestB = y
-                if v >= beta:
-                    return (v, bestB)
-                else:
-                    alpha = max(v, alpha)
+            if v >= beta:
+                return (v, bestB)
+            else:
+                alpha = max(v, alpha)
         return (v, bestB)
 
 
@@ -65,10 +65,10 @@ def minMax(b, alpha, beta, currentDepth):
             if estimate < v:
                 v = estimate
                 bestB = y
-                if v <= alpha:
-                    return (v, bestB)
-                else:
-                    beta = min(v, beta)
+            if v <= alpha:
+                return (v, bestB)
+            else:
+                beta = min(v, beta)
         return (v, bestB)
 
 

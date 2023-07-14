@@ -1,9 +1,13 @@
-# Morris Variant Game - AI Project
+# Morris Game (8 Men Variant) - (MiniMax vs Alpha-Beta pruning)
 
-MiniMax vs Alpha-Beta pruning
+###  To run
+````
+python3 input_board_file output_file max_depth
+````
+
 <br>
 
-<br>
+###  Sample plays
 
 ````
 python3 MiniMaxOpening.py board1.txt board2.txt 2

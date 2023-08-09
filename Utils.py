@@ -2,6 +2,8 @@
 
 # Contains move generator for Morris Variant and other helper functions
 
+def getMaxDepth():
+    return 3
 
 def generateMovesOpening(b):
     return generateAdd(b)
@@ -270,3 +272,60 @@ def drawBoard(b):
             if placeholder in line:
                 line = line.replace(placeholder, boardlist[j])
         print(line)
+
+
+def getScoreForMetrics(b, piece):
+    mill_closure_weight = 500
+    pieces_in_mills_weight = 500
+    proximity_to_mills_weight = 300
+    block_opponent_mills_weight = 200
+    positional_advantage_weight = 200
+
+    opponent = "B" if piece == "W" else "W"
+
+    # Mill Closure Score
+    mill_closure_score = 0
+    for j in range(len(b)):
+        if b[j] == opponent and closeMill(j, b):
+            mill_closure_score += mill_closure_weight
+
+    # Pieces in Mills Score
+    pieces_in_mills_score = 0
+    for j in range(len(b)):
+        if b[j] == piece and closeMill(j, b):
+            pieces_in_mills_score += pieces_in_mills_weight
+
+    # Proximity to Mills Score
+    proximity_to_mills_score = 0
+    for j in range(len(b)):
+        if b[j] == piece and not closeMill(j, b):
+            neighborList = getNeighborsList(j)
+            for neighbor in neighborList:
+                if b[neighbor] == piece and closeMill(neighbor, b):
+                    proximity_to_mills_score += proximity_to_mills_weight
+                    break
+
+    # Block Opponent Mills Score
+    block_opponent_mills_score = 0
+    for j in range(len(b)):
+        if b[j] == opponent and not closeMill(j, b):
+            neighborList = getNeighborsList(j)
+            for neighbor in neighborList:
+                if b[neighbor] == opponent and closeMill(neighbor, b):
+                    block_opponent_mills_score += block_opponent_mills_weight
+                    break
+
+    # Positional Advantage Score (example: consider the center intersection)
+    positional_advantage_score = 0
+    if b[12] == piece:  # Center intersection (you can define other key intersections)
+        positional_advantage_score += positional_advantage_weight
+
+    total_score = (
+        mill_closure_score
+        + pieces_in_mills_score
+        + proximity_to_mills_score
+        + block_opponent_mills_score
+        + positional_advantage_score
+    )
+
+    return total_score

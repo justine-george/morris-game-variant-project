@@ -1,8 +1,15 @@
 # Morris Game (8 Men Variant) - (MiniMax vs Alpha-Beta pruning)
 
-###  To run
+###  To play the game
 ````
-python3 input_board_file output_file max_depth
+python3 playGame.py
+````
+
+<br>
+
+###  To run the tests
+````
+python3 program_name.py input_board_file output_file max_depth
 ````
 
 <br>

@@ -1,4 +1,4 @@
-# Morris Game (8 Men Variant) - (MiniMax vs Alpha-Beta pruning)
+# 8 Men Morris Game AI: MiniMax vs Alpha-Beta Pruning
 
 This repository contains an implementation of the 8 Men Morris game, a variant of the classic board game, using both MiniMax and Alpha-Beta pruning algorithms. The project showcases different strategies and improvements for playing the game, demonstrating the effectiveness of these algorithms in game theory and artificial intelligence.
 
